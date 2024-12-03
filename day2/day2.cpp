@@ -95,7 +95,7 @@ void star2(std::vector<std::string> &lines) {
 }
 
 int main(int argc, char const *argv[]) {
-    auto lines = Utils::parseFile("input.txt");
+    auto lines = utils::parseFile("input.txt");
     if (!lines) {
         std::cout << "Lines is nullptr\n";
         exit(1);

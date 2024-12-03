@@ -9,7 +9,7 @@
 #include "../utils/utils.hpp"
 
 void star1() {
-    auto lines = Utils::parseFile("input.txt");
+    auto lines = utils::parseFile("input.txt");
     if (!lines) {
         exit(1);
     }
@@ -40,7 +40,7 @@ void star1() {
 }
 
 void star2() {
-    auto lines = Utils::parseFile("input.txt");
+    auto lines = utils::parseFile("input.txt");
     if (!lines) {
         exit(1);
     }

@@ -4,11 +4,11 @@
 #include <string>
 #include <vector>
 
-namespace Utils {
+namespace utils {
 std::optional<std::vector<std::string>> parseFile(const std::string &);
 }
 
-std::optional<std::vector<std::string>> Utils::parseFile(
+std::optional<std::vector<std::string>> utils::parseFile(
     const std::string &filename) {
     std::ifstream file(filename);
     if (!file.is_open()) {
