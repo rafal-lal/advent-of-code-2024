@@ -2,3 +2,4 @@ BasedOnStyle: Google
 IndentWidth: 4
 AllowShortFunctionsOnASingleLine: false
 BreakBeforeBraces: Attach
+ColumnLimit: 120
