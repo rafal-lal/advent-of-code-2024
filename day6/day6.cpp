@@ -20,7 +20,7 @@ void star1(std::vector<std::string> &lines) {
 
     int sum = 0;
     auto currDir = utils::Direction::N;
-    while (utils::checkDirection<std::string>(
+    while (utils::checkDirection<std::string, int>(
         floor, currI, currJ, currDir, [&](std::string tile, int nextI, int nextJ) -> bool {
             if (floor[currI][currJ] != "X") {
                 floor[currI][currJ] = "X";
@@ -58,7 +58,7 @@ void star2(std::vector<std::string> &lines) {
     auto startingFloor(floor);
 
     auto currDir = utils::Direction::N;
-    while (utils::checkDirection<std::string>(
+    while (utils::checkDirection<std::string, int>(
         floor, currI, currJ, currDir, [&](std::string tile, int nextI, int nextJ) -> bool {
             if (floor[currI][currJ] != "X") {
                 floor[currI][currJ] = "X";
@@ -100,7 +100,7 @@ void star2(std::vector<std::string> &lines) {
         bool directionChange = false;
         std::unordered_map<std::pair<int, int>, int, utils::PairHash> positions;
         std::vector<std::pair<int, int>> visited;
-        while (utils::checkDirection<std::string>(
+        while (utils::checkDirection<std::string, int>(
             fl, currI, currJ, currDir, [&](std::string tile, int nextI, int nextJ) -> bool {
                 if (!directionChange) {
                     positions[std::make_pair(currI, currJ)]++;

@@ -1,9 +1,11 @@
 #include <cmath>
+#include <cstddef>
 #include <fstream>
 #include <functional>
 #include <iostream>
 #include <optional>
 #include <string>
+#include <tuple>
 #include <unordered_map>
 #include <vector>
 
@@ -25,9 +27,9 @@ std::optional<std::vector<std::string>> parseFile(const std::string& filename) {
 
 enum class Direction { N, NE, E, SE, S, SW, W, NW };
 
-template <typename T>
-bool checkDirection(std::vector<std::vector<T>>& array, const size_t i, const size_t j, const Direction dir,
-                    const std::function<bool(T, int, int)>& func) {
+template <typename T, typename I>
+bool checkDirection(std::vector<std::vector<T>>& array, const I i, const I j, const Direction dir,
+                    const std::function<bool(T, I, I)>& func) {
     int nextI = 0, nextJ = 0;
     switch (dir) {
         case Direction::N:
@@ -117,6 +119,21 @@ struct PairHash {
         std::size_t h1 = std::hash<T1>()(p.first);
         std::size_t h2 = std::hash<T2>()(p.second);
         return h1 ^ (h2 << 1);
+    }
+};
+
+struct TupleHash {
+    template <typename... T>
+    std::size_t operator()(const std::tuple<T...>& t) const {
+        return std::apply(
+            [](const auto&... args) {
+                std::size_t hash = 0;
+                ((hash ^= std::hash<std::remove_cv_t<std::remove_reference_t<decltype(args)>>>()(args) + 0x9e3779b9 +
+                          (hash << 6) + (hash >> 2)),
+                 ...);
+                return hash;
+            },
+            t);
     }
 };
 
