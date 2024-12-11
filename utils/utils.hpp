@@ -1,8 +1,10 @@
+#include <cmath>
 #include <fstream>
 #include <functional>
 #include <iostream>
 #include <optional>
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 namespace utils {
@@ -94,6 +96,19 @@ void generatePermutations(const std::string& symbols, int places, std::string cu
     for (char symbol : symbols) {
         generatePermutations(symbols, places, current + symbol, result);
     }
+}
+
+int distance(std::pair<int, int> first, std::pair<int, int> second) {
+    return std::abs(second.first - first.first) + std::abs(second.second - first.second);
+}
+
+template <typename T>
+bool isIn2DGrid(const std::vector<std::vector<T>>& grid, int i, int j) {
+    if (i < 0 || i >= grid.size() || j < 0 || j >= grid[0].size()) {
+        return false;
+    }
+
+    return true;
 }
 
 }  // namespace utils
