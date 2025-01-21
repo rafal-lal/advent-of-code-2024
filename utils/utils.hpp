@@ -73,8 +73,54 @@ bool checkDirection(std::vector<std::vector<T>>& array, const I i, const I j, co
     return func(array[nextI][nextJ], nextI, nextJ);
 }
 
+template <typename T, typename I>
+bool checkDirection(std::vector<std::vector<T>>& array, const I i, const I j, const Direction dir, int depth,
+                    const std::function<bool(T, I, I, Direction, I)>& func) {
+    int nextI = 0, nextJ = 0;
+    switch (dir) {
+        case Direction::N:
+            nextI = i - 1;
+            nextJ = j;
+            break;
+        case Direction::NE:
+            nextI = i - 1;
+            nextJ = j + 1;
+            break;
+        case Direction::E:
+            nextI = i;
+            nextJ = j + 1;
+            break;
+        case Direction::SE:
+            nextI = i + 1;
+            nextJ = j + 1;
+            break;
+        case Direction::S:
+            nextI = i + 1;
+            nextJ = j;
+            break;
+        case Direction::SW:
+            nextI = i + 1;
+            nextJ = j - 1;
+            break;
+        case Direction::W:
+            nextI = i;
+            nextJ = j - 1;
+            break;
+        case Direction::NW:
+            nextI = i - 1;
+            nextJ = j - 1;
+            break;
+    }
+
+    if (nextI < 0 || nextI >= array.size() || nextJ < 0 || nextJ >= array[0].size()) {
+        return false;
+    }
+
+    return func(array[nextI][nextJ], nextI, nextJ, dir, depth);
+}
+
 template <typename T>
-void print2DVector(const std::vector<std::vector<T>>& vec) {
+void print2DVector(const T& vec) {
     for (const auto& row : vec) {
         for (const auto& elem : row) {
             std::cout << elem << "";
@@ -102,6 +148,35 @@ void generatePermutations(const std::string& symbols, int places, std::string cu
 
 int distance(std::pair<int, int> first, std::pair<int, int> second) {
     return std::abs(second.first - first.first) + std::abs(second.second - first.second);
+}
+
+template <typename T>
+void addIfNotExists(std::vector<T>& vec, const T elem) {
+    if (std::find(vec.begin(), vec.end(), elem) == vec.end()) {
+        vec.push_back(elem);
+    }
+}
+
+template <typename T>
+bool Exists(std::vector<T>& vec, const T elem) {
+    if (std::find(vec.begin(), vec.end(), elem) != vec.end()) {
+        return true;
+    }
+    return false;
+}
+
+template <typename Container, typename T>
+bool findIn2DGrid(const Container& grid, int& q, int& w, const T elem) {
+    for (size_t i = 0; i < grid.size(); i++) {
+        for (size_t j = 0; j < grid[i].size(); j++) {
+            if (grid[i][j] == elem) {
+                q = i, w = j;
+                return true;
+            }
+        }
+    }
+
+    return false;
 }
 
 template <typename T>
